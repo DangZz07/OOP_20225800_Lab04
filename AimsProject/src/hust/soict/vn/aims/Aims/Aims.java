@@ -1,7 +1,6 @@
 package hust.soict.vn.aims.Aims;
 import hust.soict.vn.aims.cart.Cart.Cart;
 import hust.soict.vn.aims.disc.Disc.DigitalVideoDisc;
-
 public class Aims {
 	public static void main(String[] args) {
         Cart anOrder = new Cart();
@@ -18,6 +17,7 @@ public class Aims {
         
         System.out.println("Total cost is:");
         System.out.println(anOrder.totalCost());
+      
     }
 }
 
