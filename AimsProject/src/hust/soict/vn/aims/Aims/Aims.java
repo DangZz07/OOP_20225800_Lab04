@@ -247,7 +247,6 @@ public class Aims {
             }
             case '5': {
                 System.out.println("Placing order...");
-              
                 cartMenu();
                 break;
             }
