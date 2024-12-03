@@ -53,12 +53,12 @@ public class Cart {
         }
     }
 
-    public void removeMedia(Media media) {
-        if (itemsOrdered.contains(media)) {
-            itemsOrdered.remove(media);
-            System.out.println(media.getTitle() + " has been removed from the cart.");
+    public void removeMedia(String title) {
+        if (itemsOrdered.contains(title)) {
+            itemsOrdered.remove(title);
+            System.out.println("the disc has been removed from the cart.");
         } else {
-            System.out.println(media.getTitle() + " does not exist in the cart.");
+            System.out.println(" the disc does not exist in the cart.");
         }
     }
 
@@ -76,7 +76,7 @@ public class Cart {
         }
     }
 
-    public void search(String title) {
+    public Media search(String title) {
         boolean found = false;
         for (Media media : itemsOrdered) {
             if (media.getTitle().equalsIgnoreCase(title)) {
@@ -87,6 +87,12 @@ public class Cart {
         }
         if (!found) {
             System.out.println("No media found with title: " + title);
+        }
+		return null;
+    }
+    public void listItem() {
+        for (Media item : itemsOrdered) {
+            System.out.println(item.toString());
         }
     }
 }

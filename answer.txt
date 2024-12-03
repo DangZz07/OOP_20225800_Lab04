@@ -42,7 +42,6 @@ public int compareTo(Media other) {
     }
     return super.compareTo(other);
 }
-```
 
 Trong phương thức này:
 - So sánh theo title, rồi length (giảm dần), cuối cùng là cost (tăng dần).

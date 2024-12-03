@@ -28,4 +28,22 @@ public class Store {
             System.out.println("Media does not exist in the store.");
         }
     }
+
+    public void listItem() {
+        for (Media item : itemsInStore) {
+            System.out.println(item.toString());
+        }
+    }
+    public Media search(String title){
+        
+        for (Media item : itemsInStore) {
+            if (item.getTitle().equals(title)) {
+                System.out.println(item.toString());
+                return item;
+            }
+        }
+        System.out.println("The item is not in the store");
+        return null;
+
+}
 }
