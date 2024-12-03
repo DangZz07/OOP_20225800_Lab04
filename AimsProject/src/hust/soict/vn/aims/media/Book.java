@@ -1,49 +1,17 @@
 package hust.soict.vn.aims.media;
 import java.util.List;
 import java.util.ArrayList;
-public class Book {
+public class Book extends Media {
 	
-	private int id;
-	private String title;
-	private String category;
-	private float cost;
 	private List<String> authors = new ArrayList<String>();
+    public Book(int id, String title, float cost, List<String> authors) {
+    	super(id, title, null, cost);
+        this.authors = authors;
+    }
 
 	public Book() {
 		
 	}
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
-	public float getCost() {
-		return cost;
-	}
-
-	public void setCost(float cost) {
-		this.cost = cost;
-	}
-
 	public List<String> getAuthors() {
 		return authors;
 	}
@@ -72,6 +40,17 @@ public class Book {
 			System.out.println("Author " + authorName + " does not ex in the list.");
 		}
 	}
+    public String toString() {
+        StringBuilder authorList = new StringBuilder();
+        for (String author : authors) {
+            authorList.append(author).append(", ");
+        }
+        if (authorList.length() > 0) {
+            authorList.setLength(authorList.length() - 2);
+        }
+        
+        return String.format("Book - [%s] - [%s] - [%s] - [%.2f]$", getTitle(), getCategory(), authorList.toString(), getCost());
+    }
 	
 
 }

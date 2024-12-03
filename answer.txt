@@ -1,0 +1,62 @@
+
+
+1. Lớp nào nên implement giao diện Comparable?
+
+Lớp Media nên triển khai giao diện Comparable vì đây là lớp cha chung cho tất cả các loại phương tiện (Media). Khi lớp Media thực hiện giao diện này, các lớp con như DVD, CD, hoặc Book sẽ có một cách sắp xếp mặc định, từ đó đảm bảo tính đồng nhất trong việc sắp xếp các đối tượng thuộc các lớp này.
+
+2. Phương thức compareTo() nên được triển khai như thế nào để phản ánh thứ tự sắp xếp mong muốn?
+
+Phương thức compareTo() của lớp Media có thể được viết như sau để sắp xếp theo title trước, sau đó theo cost:
+
+java
+public int compareTo(Media other) {
+    int titleComparison = this.title.compareTo(other.title);
+    if (titleComparison == 0) {
+        return Float.compare(this.cost, other.cost);
+    }
+    return titleComparison;
+}
+
+
+Điều này đảm bảo:
+- Sắp xếp theo title theo thứ tự chữ cái.
+- Nếu title giống nhau, tiếp tục so sánh theo cost theo thứ tự tăng dần.
+
+3. Có thể có hai quy tắc sắp xếp cho các phần tử (theo title rồi cost, hoặc theo cost rồi title) nếu sử dụng giao diện Comparable không?
+
+Không thể. Giao diện Comparable chỉ cho phép một quy tắc sắp xếp mặc định được định nghĩa trong phương thức compareTo(). Nếu bạn muốn có nhiều quy tắc sắp xếp khác nhau, bạn cần phải sử dụng thêm các Comparator bên ngoài thay vì chỉ dựa vào Comparable.
+
+4. Giả sử lớp DVD có một quy tắc sắp xếp khác với các loại media khác (theo title, sau đó giảm dần length, rồi đến cost). Làm thế nào để chỉnh sửa mã để cho phép điều này?
+
+Phương thức compareTo() của lớp DVD có thể được sửa đổi như sau:
+
+java
+public int compareTo(Media other) {
+    if (other instanceof DigitalVideoDisc) {
+        DigitalVideoDisc otherDVD = (DigitalVideoDisc) other;
+         So sánh theo title
+        int titleComparison = this.title.compareTo(otherDVD.title);
+        if (titleComparison == 0) {
+             So sánh theo length giảm dần
+            int lengthComparison = Integer.compare(otherDVD.length, this.length);
+            if (lengthComparison == 0) {
+                 So sánh theo cost tăng dần
+                return Float.compare(this.cost, otherDVD.cost);
+            }
+            return lengthComparison;
+        }
+        return titleComparison;
+    }
+    
+     Nếu đối tượng không phải là DVD, gọi phương thức compareTo() của lớp cha
+    return super.compareTo(other);
+}
+
+
+Trong phương thức compareTo() trên:
+- Đầu tiên, so sánh theo title của hai đối tượng.
+- Nếu title giống nhau, tiếp tục so sánh theo length (giảm dần).
+- Nếu cả title và length đều giống nhau, tiếp tục so sánh theo cost (tăng dần).
+- Nếu đối tượng không phải là DVD, phương thức super.compareTo(other) được gọi để thực hiện so sánh với các loại Media khác.
+
+Cách viết lại này giúp đảm bảo rằng mã của bạn có thể xử lý các quy tắc sắp xếp khác nhau tùy thuộc vào lớp đối tượng.
